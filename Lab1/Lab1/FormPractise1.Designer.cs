@@ -52,7 +52,7 @@
             buttonOneD = new Button();
             textBoxArray = new TextBox();
             panelResult = new Panel();
-            textBox1 = new TextBox();
+            textBoxResult = new TextBox();
             labelTask = new Label();
             buttonShowResult = new Button();
             panelButtons.SuspendLayout();
@@ -306,7 +306,7 @@
             // 
             // panelResult
             // 
-            panelResult.Controls.Add(textBox1);
+            panelResult.Controls.Add(textBoxResult);
             panelResult.Controls.Add(labelTask);
             panelResult.Controls.Add(buttonShowResult);
             panelResult.Dock = DockStyle.Bottom;
@@ -315,15 +315,15 @@
             panelResult.Size = new Size(636, 211);
             panelResult.TabIndex = 2;
             // 
-            // textBox1
+            // textBoxResult
             // 
-            textBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            textBox1.Location = new Point(15, 33);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Результат обработки";
-            textBox1.Size = new Size(273, 175);
-            textBox1.TabIndex = 14;
+            textBoxResult.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            textBoxResult.Location = new Point(15, 33);
+            textBoxResult.Multiline = true;
+            textBoxResult.Name = "textBoxResult";
+            textBoxResult.PlaceholderText = "Результат обработки";
+            textBoxResult.Size = new Size(273, 175);
+            textBoxResult.TabIndex = 14;
             // 
             // labelTask
             // 
@@ -394,6 +394,6 @@
         private Panel panelResult;
         private Label labelTask;
         private Button buttonShowResult;
-        private TextBox textBox1;
+        private TextBox textBoxResult;
     }
 }
