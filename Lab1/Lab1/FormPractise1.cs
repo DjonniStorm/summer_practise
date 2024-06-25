@@ -257,7 +257,34 @@ namespace Lab1
         }
         private void buttonTask6_Click(object sender, EventArgs e) 
         {
-            
+            for (int i = 0; i < _sizeRows ; i++)
+            {
+                for (int j = i; j >= 0; j--)
+                {
+                    for (int x = _sizeRows - 1; x >= 0; x--)
+                    {
+                        for (int y = x; y >= 0; y--)
+                        {
+                            if (array2d[i, j] > array2d[x, y])
+                            {
+                                int temp = array2d[i, j];
+                                array2d[i, j] = array2d[x, y];
+                                array2d[x, y] = temp;
+                            }
+                        }
+                    }
+                }
+            }
+            string buffer = "";
+            for (int i = 0; i < _sizeRows; i++)
+            {
+                for (int j = 0; j < _sizeColumns; j++)
+                {
+                    buffer += $"{array2d[i, j].ToString().PadLeft(5).PadRight(5)}  ";
+                }
+                buffer += Environment.NewLine;
+            }
+            textBoxResult.Text = buffer;
         }
 
         private void ButtonsTasks(int task)
