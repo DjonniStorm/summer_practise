@@ -51,7 +51,68 @@ namespace Lab1
             textBoxResult.Text = buffer;
         }
         private void buttonTask2_Click(object sender, EventArgs e) => ButtonsTasks(2);
-        private void buttonTask3_Click(object sender, EventArgs e) => ButtonsTasks(3);
+        private void buttonTask3_Click(object sender, EventArgs e)
+        {
+            int counter = 0;
+            for (int i = 0; i < _sizeColumns - 1; i++)
+            {
+                if (array1d[i] % 2 == 0)
+                {
+                    if (array1d[i + 1] % 2 == 0)
+                    {
+                        counter++;
+                        continue;
+                    }
+                    if (counter >= 1)
+                    {
+                        int startPoint = i - counter;
+                        for (int j = _sizeColumns - 1; j > startPoint + counter; j--) //тут можно до startPoint + counter + 1, там типо
+                                                                                      //цепляет последний элемент серии, но он всё равно потом затирается
+                        {
+                            array1d[j] = array1d[j - 1];
+                        }
+                        int temp = array1d[startPoint];
+                        array1d[startPoint + counter + 1] = temp;
+                        i++;
+                        counter = 0;
+                    }
+                }
+                else
+                {
+                    if (array1d[i + 1] % 2 != 0)
+                    {
+                        counter++;
+                        continue;
+                    }
+                    if (counter >= 1)
+                    {
+                        int startPoint = i - counter;
+                        for (int j = _sizeColumns - 1; j > startPoint + counter; j--)
+                        {
+                            array1d[j] = array1d[j - 1];
+                        }
+                        int temp = array1d[startPoint];
+                        array1d[startPoint + counter + 1] = temp;
+                        i++;
+                        counter = 0;
+                    }
+                }
+            }
+            string buffer = "";
+            for (int i = 0; i < _sizeColumns / 2; i++)
+            {
+                buffer += $"  {array1d[i]}  ";
+            }
+            buffer += Environment.NewLine;
+            for (int i = _sizeColumns / 2; i < _sizeColumns; i++)
+            {
+                buffer += $"  {array1d[i]}  ";
+            }
+            textBoxResult.Text = buffer;
+            Array1dFromTextBox();
+
+
+        }
         private void buttonTask4_Click(object sender, EventArgs e) => ButtonsTasks(4);
         private void buttonTask5_Click(object sender, EventArgs e) => ButtonsTasks(5);
         private void buttonTask6_Click(object sender, EventArgs e) => ButtonsTasks(6);
@@ -85,7 +146,8 @@ namespace Lab1
         private void UpdateValues()
         {
             _sizeRows = (int)numericUpDownNumberOfRows.Value;
-            _sizeColumns = (int)numericUpDownNumberOfColumns.Value;
+            _sizeColumns = (int)numericUpDownNumberOfColumns.Value + (int)numericUpDownNumberOfColumns.Value / 3;
+            MessageBox.Show(_sizeColumns.ToString());
             _rangeFrom = (int)numericUpDownFrom.Value;
             _rangeTo = (int)numericUpDownTo.Value;
         }
@@ -98,9 +160,14 @@ namespace Lab1
             int rangeTo = Math.Max(_rangeFrom, _rangeTo);
             string buffer = "";
 
-            for (int i = 0; i < _sizeColumns; i++)
+            for (int i = 0; i < _sizeColumns / 2; i++)
             {
                 array1d[i] = random.Next(rangeFrom, rangeTo + 1);
+                buffer += $"{array1d[i].ToString().PadLeft(5).PadRight(5)}  ";
+            }
+            buffer += Environment.NewLine;
+            for (int i = _sizeColumns / 2; i < _sizeColumns; i++)
+            {
                 buffer += $"{array1d[i].ToString().PadLeft(5).PadRight(5)}  ";
             }
             textBoxArray.Text = buffer;
@@ -132,7 +199,7 @@ namespace Lab1
 
         private void textBoxArray_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxArray.Lines.Length == 1)
+            if (textBoxArray.Lines.Length <= 2)
             {
                 Array1dFromTextBox();
             } else if (textBoxArray.Lines.Length > 1)
