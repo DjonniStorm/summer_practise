@@ -30,6 +30,25 @@ namespace Lab1
 
         private void buttonTask1_Click(object sender, EventArgs e)
         {
+            if (_sizeColumns <= 1 || array1d == default(int[]))
+            {
+                MessageBox.Show("Некорректные данные");
+                return;
+            }
+            int[] freq = new int[10];
+            for (int i = 0; i < _sizeColumns; i++)
+            {
+                string line = array1d[i].ToString();
+                foreach (var character in line)
+                {
+                    if (char.IsDigit(character))
+                        freq[(int)char.GetNumericValue(character)]++;
+                }
+            }
+            string buffer = " ";
+            foreach (int i in freq)
+                buffer += $"  {i}  ";
+            textBoxResult.Text = buffer;
         }
         private void buttonTask2_Click(object sender, EventArgs e) => ButtonsTasks(2);
         private void buttonTask3_Click(object sender, EventArgs e) => ButtonsTasks(3);
@@ -145,12 +164,6 @@ namespace Lab1
             {
                 array1d[i] = array[i];
             }
-            string check = " ";
-            foreach (int i in array1d)
-            {
-                check += $" {i} ";
-            }
-            textBoxResult.Text = check;
         }
         private void Array2dFromTextBox()
         {
