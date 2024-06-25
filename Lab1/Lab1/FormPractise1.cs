@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -255,26 +256,43 @@ namespace Lab1
             textBoxResult.Text = buffer;
             Array2dFromTextBox();
         }
-        private void buttonTask6_Click(object sender, EventArgs e) 
+        private void buttonTask6_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < _sizeRows ; i++)
+
+            bool flag = true;
+            while (flag)
             {
-                for (int j = i; j >= 0; j--)
+                flag = false;
+                for (short i = 0; i < _sizeRows; i++)
                 {
-                    for (int x = _sizeRows - 1; x >= 0; x--)
+                    for (short j = 0; j < _sizeColumns - 1; j++)
                     {
-                        for (int y = x; y >= 0; y--)
+                        if (i + j <= _sizeColumns - 1) continue; // если выше побочной диагонали значит сумма индексов
+                                                      //должна быть меньше m-1 . что и и выражает данное условие 
+                        if (i + j + 1 == _sizeColumns - 1)          // для сравнения элементов разных строк
                         {
-                            if (array2d[i, j] > array2d[x, y])
+                            if (array2d[i,j] > array2d[i + 1, 0])  //сама перестановка
                             {
-                                int temp = array2d[i, j];
-                                array2d[i, j] = array2d[x, y];
-                                array2d[x, y] = temp;
+                                int tmp = array2d[i, j];
+                                array2d[i, j] = array2d[i + 1, 0];
+                                array2d[i + 1, 0] = tmp;
+                                flag = true;
+                                continue;
                             }
+                        }
+                        if (array2d[i, j] > array2d[i, j + 1])  //сама перестановка
+                        {
+                            int tmp = array2d[i, j];
+                            array2d[i, j] = array2d[i, j + 1];
+                            array2d[i, j + 1] = tmp;
+                            flag = true;
                         }
                     }
                 }
             }
+
+
+
             string buffer = "";
             for (int i = 0; i < _sizeRows; i++)
             {
@@ -352,7 +370,7 @@ namespace Lab1
 
             for (int i = 0; i < _sizeRows; i++)
             {
-                for (int j = 0; j < _sizeColumns * 2; j++)
+                for (int j = 0; j < _sizeColumns; j++)
                 {
                     if (j < _sizeColumns)
                         array2d[i, j] = random.Next(rangeFrom, rangeTo + 1);
