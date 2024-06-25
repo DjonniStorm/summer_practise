@@ -113,7 +113,76 @@ namespace Lab1
 
 
         }
-        private void buttonTask4_Click(object sender, EventArgs e) => ButtonsTasks(4);
+        private void buttonTask4_Click(object sender, EventArgs e)
+        {
+            int counter = 0;
+            for (int i = _sizeColumns - 1; i > 0; i--)
+            {
+                if (array1d[i] >= 0)
+                {
+                    if (array1d[i - 1] >= 0)
+                    {
+                        counter++;
+                    }
+                    else
+                    {
+                        if (counter >= 1)
+                        {
+                            int temp = counter;
+                            while (counter >= 0)
+                            {
+                                for (int j = i; j < _sizeColumns - 1; j++)
+                                {
+                                    array1d[j] = array1d[j + 1];
+                                }
+                                counter--;
+                            }
+                            _sizeColumns -= temp + 1;
+
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    if (array1d[i - 1] < 0)
+                    {
+                        counter++;
+                    }
+                    else
+                    {
+                        if (counter >= 1)
+                        {
+                            int temp = counter;
+                            while (counter >= 0)
+                            {
+                                for (int j = i; j < _sizeColumns - 1; j++)
+                                {
+                                    array1d[j] = array1d[j + 1];
+                                }
+                                counter--;
+                            }
+                            _sizeColumns -= temp + 1;
+
+                            break;
+                        }
+                    }
+                }
+            }
+            if (counter >= 1)
+            {
+                MessageBox.Show("Только одна серия");
+                return;
+            }
+            string buffer = "";
+            for (int i = 0; i < _sizeColumns; i++)
+            {
+                buffer += $"  {array1d[i]}  ";
+            }
+            buffer += Environment.NewLine;
+            textBoxResult.Text = buffer;
+            Array1dFromTextBox();
+        }
         private void buttonTask5_Click(object sender, EventArgs e) => ButtonsTasks(5);
         private void buttonTask6_Click(object sender, EventArgs e) => ButtonsTasks(6);
 
@@ -146,7 +215,7 @@ namespace Lab1
         private void UpdateValues()
         {
             _sizeRows = (int)numericUpDownNumberOfRows.Value;
-            _sizeColumns = (int)numericUpDownNumberOfColumns.Value + (int)numericUpDownNumberOfColumns.Value / 3;
+            _sizeColumns = (int)numericUpDownNumberOfColumns.Value;
             MessageBox.Show(_sizeColumns.ToString());
             _rangeFrom = (int)numericUpDownFrom.Value;
             _rangeTo = (int)numericUpDownTo.Value;
@@ -160,16 +229,12 @@ namespace Lab1
             int rangeTo = Math.Max(_rangeFrom, _rangeTo);
             string buffer = "";
 
-            for (int i = 0; i < _sizeColumns / 2; i++)
+            for (int i = 0; i < _sizeColumns; i++)
             {
                 array1d[i] = random.Next(rangeFrom, rangeTo + 1);
                 buffer += $"{array1d[i].ToString().PadLeft(5).PadRight(5)}  ";
             }
             buffer += Environment.NewLine;
-            for (int i = _sizeColumns / 2; i < _sizeColumns; i++)
-            {
-                buffer += $"{array1d[i].ToString().PadLeft(5).PadRight(5)}  ";
-            }
             textBoxArray.Text = buffer;
 
         }
