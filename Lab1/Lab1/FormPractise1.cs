@@ -183,8 +183,82 @@ namespace Lab1
             textBoxResult.Text = buffer;
             Array1dFromTextBox();
         }
-        private void buttonTask5_Click(object sender, EventArgs e) => ButtonsTasks(5);
-        private void buttonTask6_Click(object sender, EventArgs e) => ButtonsTasks(6);
+        private void buttonTask5_Click(object sender, EventArgs e)
+        {
+            //оно вроде работает
+            int first = -1;
+            int second = -1;
+            for (int j = 0; j < _sizeColumns; j++)
+            {
+                for (int i = 0; i < _sizeRows; i++)
+                {
+                    if (array2d[i, j] >= 0 && first == -1)
+                    {
+                        first = j;
+                    }
+                    if (array2d[_sizeRows - 1 - i, _sizeColumns - 1 - j] < 0 && second == -1)
+                    {
+                        second = _sizeColumns - 1 - j;
+                    }
+                }
+                if (second != -1 && first != -1)
+                {
+                    break;
+                }
+            }
+            for (int j = 0; j < _sizeColumns; j++)
+            {
+                int counter = 0;
+                for (int i = 0; i < _sizeRows; i++)
+                {
+                    if (array2d[i, j] % 2 == 0)
+                    {
+                        counter++;
+                    }
+                }
+                if (counter > 3)
+                {
+                    _sizeColumns++;
+                    if (j < first)
+                        first++;
+                    if (j < second)
+                        second++;
+
+                    for (int d = _sizeColumns - 1; d > j; d--)
+                    {
+                        for (int k = 0; k < _sizeRows; k++)
+                        {
+                            array2d[k, d] = array2d[k, d - 1];
+
+
+                        }
+                    }
+                    for (int k = 0; k < _sizeRows; k++)
+                    {
+                        if (j != _sizeColumns) //вроде и без этого работает
+                            array2d[k, j + 1] = Math.Abs(array2d[k, second]) + Math.Abs(array2d[k, first]);
+
+                    }
+                    j++;
+                }
+            }
+            string buffer = "";
+            MessageBox.Show($" first = {first}   second = {second}");
+            for (int i = 0; i < _sizeRows; i++)
+            {
+                for (int j = 0; j < _sizeColumns; j++)
+                {
+                    buffer += $"{array2d[i, j].ToString().PadLeft(5).PadRight(5)}  ";
+                }
+                buffer += Environment.NewLine;
+            }
+            textBoxResult.Text = buffer;
+            Array2dFromTextBox();
+        }
+        private void buttonTask6_Click(object sender, EventArgs e) 
+        {
+            
+        }
 
         private void ButtonsTasks(int task)
         {
@@ -243,7 +317,7 @@ namespace Lab1
         {
             UpdateValues();
 
-            array2d = new int[_sizeRows, _sizeColumns];
+            array2d = new int[_sizeRows, _sizeColumns * 2];
             string buffer = "";
 
             int rangeFrom = Math.Min(_rangeFrom, _rangeTo);
@@ -251,9 +325,12 @@ namespace Lab1
 
             for (int i = 0; i < _sizeRows; i++)
             {
-                for (int j = 0; j < _sizeColumns; j++)
+                for (int j = 0; j < _sizeColumns * 2; j++)
                 {
-                    array2d[i, j] = random.Next(rangeFrom, rangeTo + 1);
+                    if (j < _sizeColumns)
+                        array2d[i, j] = random.Next(rangeFrom, rangeTo + 1);
+                    else
+                        array2d[i, j] = 0;
                     buffer += $"{array2d[i, j].ToString().PadLeft(5).PadRight(5)}  ";
                 }
                 buffer += Environment.NewLine;
