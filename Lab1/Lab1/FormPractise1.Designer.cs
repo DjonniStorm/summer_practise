@@ -275,7 +275,7 @@
             // buttonTwoD
             // 
             buttonTwoD.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonTwoD.Location = new Point(405, 180);
+            buttonTwoD.Location = new Point(386, 180);
             buttonTwoD.Name = "buttonTwoD";
             buttonTwoD.Size = new Size(105, 35);
             buttonTwoD.TabIndex = 2;
@@ -286,7 +286,7 @@
             // buttonOneD
             // 
             buttonOneD.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonOneD.Location = new Point(405, 139);
+            buttonOneD.Location = new Point(386, 139);
             buttonOneD.Name = "buttonOneD";
             buttonOneD.Size = new Size(105, 35);
             buttonOneD.TabIndex = 1;
@@ -303,6 +303,7 @@
             textBoxArray.PlaceholderText = "Элементы массива";
             textBoxArray.Size = new Size(273, 192);
             textBoxArray.TabIndex = 0;
+            textBoxArray.TextChanged += textBoxArray_TextChanged;
             // 
             // panelResult
             // 

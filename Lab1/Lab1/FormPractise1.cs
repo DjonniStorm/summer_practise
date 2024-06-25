@@ -30,7 +30,6 @@ namespace Lab1
 
         private void buttonTask1_Click(object sender, EventArgs e)
         {
-            Array1dFromKeyboard();
         }
         private void buttonTask2_Click(object sender, EventArgs e) => ButtonsTasks(2);
         private void buttonTask3_Click(object sender, EventArgs e) => ButtonsTasks(3);
@@ -64,62 +63,6 @@ namespace Lab1
             //}
         }
 
-        private void Array1dFromKeyboard()
-        {
-            string textBoxText = textBoxArray.Text;
-            string[] values = textBoxText.Split();
-            
-            int[] array = new int[values.Length];
-            int counter = 0;
-            for (int i = 0; i < array.Length && counter < array.Length; i++)
-            {
-                if (Int32.TryParse(values[i], out int result))
-                {
-                    array[counter] = result;
-                    counter++;
-                } 
-                else
-                {
-                    continue;
-                }
-            }
-            array1d = new int[counter];
-            for (int i = 0; i < counter; i++)
-            {
-                array1d[i] = array[i];
-            }
-            string check = " ";
-            foreach (int i in array1d)
-            {
-                check += $" {i} ";
-            }
-            textBoxResult.Text = check;
-        }
-        private int[,] Array2dFromKeyboard()
-        {
-            string[] textBoxText = textBoxArray.Lines;
-
-            int m = textBoxText.Length;
-            int n = textBoxText[0].Length;
-            int[,] array = new int[textBoxText.Length, textBoxText[0].Length];
-            int countRows = 0;
-            int countCols = 0;
-            for (int i = 0; i < m; i++)
-            {
-                string[] line = textBoxText[i].Split();
-                for (int j = 0; j < n; j++)
-                {
-                    if (Int32.TryParse(line[j], out int result))
-                    {
-                        //доделать
-                        countCols++;
-                    }
-                }
-            }
-
-            return array;
-
-        }
         private void UpdateValues()
         {
             _sizeRows = (int)numericUpDownNumberOfRows.Value;
@@ -165,6 +108,80 @@ namespace Lab1
                 buffer += Environment.NewLine;
             }
             textBoxArray.Text = buffer;
+        }
+
+
+        private void textBoxArray_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxArray.Lines.Length == 1)
+            {
+                Array1dFromTextBox();
+            } else if (textBoxArray.Lines.Length > 1)
+            {
+                Array2dFromTextBox();
+            }
+        }
+        private void Array1dFromTextBox()
+        {
+            string textBoxText = textBoxArray.Text;
+            string[] values = textBoxText.Split();
+
+            int[] array = new int[values.Length];
+            int counter = 0;
+            for (int i = 0; i < array.Length && counter < array.Length; i++)
+            {
+                if (Int32.TryParse(values[i], out int result))
+                {
+                    array[counter] = result;
+                    counter++;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            array1d = new int[counter];
+            for (int i = 0; i < counter; i++)
+            {
+                array1d[i] = array[i];
+            }
+            string check = " ";
+            foreach (int i in array1d)
+            {
+                check += $" {i} ";
+            }
+            textBoxResult.Text = check;
+        }
+        private void Array2dFromTextBox()
+        {
+            string[] textBoxText = textBoxArray.Lines;
+            int countRows = textBoxArray.Lines.Length - 1;
+            int[,] array = new int[countRows, textBoxText[0].Replace(" ", "").Length];
+            
+            int sizeM = 0, sizeN = 0;
+            for (int i = 0; i < countRows; i++)
+            {
+                sizeN = 0;
+                string[] line = textBoxText[i].Split();
+                for (int j = 0; j < line.Length; j++)
+                {
+                    if (Int32.TryParse(line[j], out int result))
+                    {
+                        array[sizeM, sizeN] = result;
+                        sizeN++;
+                    }
+                }
+                sizeM++;
+            }
+            array2d = new int[sizeM, sizeN];
+            for (int i = 0; i < sizeM; i++)
+            {
+                for (int j = 0; j < sizeN; j++)
+                {
+                    array2d[i, j] = array[i, j];
+                }
+            }
+            
         }
     }
 }
