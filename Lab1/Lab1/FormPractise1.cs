@@ -258,36 +258,27 @@ namespace Lab1
         }
         private void buttonTask6_Click(object sender, EventArgs e)
         {
-
-            bool flag = true;
-            while (flag)
+            for (int k = 0; k < _sizeRows * _sizeRows; k++)
             {
-                flag = false;
-                for (short i = 0; i < _sizeRows; i++)
+                int counter = 0;
+                for (int i = _sizeRows - 1; i >= 1; i--)
                 {
-                    for (short j = 0; j < _sizeColumns - 1; j++)
+                    for (int j = _sizeColumns - 1; j > counter + 1; j--)
                     {
-                        if (i + j <= _sizeColumns - 1) continue; // если выше побочной диагонали значит сумма индексов
-                                                      //должна быть меньше m-1 . что и и выражает данное условие 
-                        if (i + j + 1 == _sizeColumns - 1)          // для сравнения элементов разных строк
+                        if (array2d[i, j] < array2d[i, j - 1])
                         {
-                            if (array2d[i,j] > array2d[i + 1, 0])  //сама перестановка
-                            {
-                                int tmp = array2d[i, j];
-                                array2d[i, j] = array2d[i + 1, 0];
-                                array2d[i + 1, 0] = tmp;
-                                flag = true;
-                                continue;
-                            }
-                        }
-                        if (array2d[i, j] > array2d[i, j + 1])  //сама перестановка
-                        {
-                            int tmp = array2d[i, j];
-                            array2d[i, j] = array2d[i, j + 1];
-                            array2d[i, j + 1] = tmp;
-                            flag = true;
+                            int temp = array2d[i, j];
+                            array2d[i, j] = array2d[i, j - 1];
+                            array2d[i, j - 1] = temp;
                         }
                     }
+                    if (array2d[i, counter + 1] < array2d[i - 1, _sizeColumns - 1] && i - 1 != 0)
+                    {
+                        int temp = array2d[i, counter + 1];
+                        array2d[i, counter + 1] = array2d[i - 1, _sizeColumns - 1];
+                        array2d[i - 1, _sizeColumns - 1] = temp;
+                    }
+                    counter++;
                 }
             }
 
@@ -335,7 +326,7 @@ namespace Lab1
         {
             _sizeRows = (int)numericUpDownNumberOfRows.Value;
             _sizeColumns = (int)numericUpDownNumberOfColumns.Value;
-            MessageBox.Show(_sizeColumns.ToString());
+            //MessageBox.Show(_sizeColumns.ToString());
             _rangeFrom = (int)numericUpDownFrom.Value;
             _rangeTo = (int)numericUpDownTo.Value;
         }
