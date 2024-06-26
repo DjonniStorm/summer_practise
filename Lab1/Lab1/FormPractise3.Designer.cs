@@ -53,6 +53,9 @@
             buttonAddValue = new Button();
             tabPage2 = new TabPage();
             tabPage3 = new TabPage();
+            button1 = new Button();
+            pictureBox3 = new PictureBox();
+            checkBox1 = new CheckBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -60,6 +63,8 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDownLength).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownHeight).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownWidth).BeginInit();
+            tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -108,7 +113,7 @@
             // 
             pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox2.Location = new Point(254, 281);
+            pictureBox2.Location = new Point(268, 281);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(254, 135);
             pictureBox2.TabIndex = 19;
@@ -300,6 +305,9 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(checkBox1);
+            tabPage2.Controls.Add(pictureBox3);
+            tabPage2.Controls.Add(button1);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -318,6 +326,35 @@
             tabPage3.Text = "Простой тип";
             tabPage3.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            button1.Location = new Point(85, 284);
+            button1.Name = "button1";
+            button1.Size = new Size(124, 38);
+            button1.TabIndex = 1;
+            button1.Text = "Добавить";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBox3.Location = new Point(304, 86);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(442, 261);
+            pictureBox3.TabIndex = 20;
+            pictureBox3.TabStop = false;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(102, 229);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(51, 19);
+            checkBox1.TabIndex = 21;
+            checkBox1.Text = "Круг";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
             // FormPractise3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -334,6 +371,9 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDownLength).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownHeight).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownWidth).EndInit();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
         }
 
@@ -363,5 +403,8 @@
         private TextBox textBoxName;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
+        private Button button1;
+        private CheckBox checkBox1;
     }
 }

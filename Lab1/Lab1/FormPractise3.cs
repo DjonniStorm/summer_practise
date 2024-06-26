@@ -17,6 +17,7 @@ public partial class FormPractise3 : Form
     {
         InitializeComponent();
         divani = new();
+        MessageBox.Show($"  {Parameter<int>.Multiplication(10, 10)}  ");
     }
 
     private void buttonAddValue_Click(object sender, EventArgs e)
@@ -40,5 +41,20 @@ public partial class FormPractise3 : Form
 
         string buffer = $" {sofa.Length}  {sofa.Width}  {sofa.Height}  {sofa.Finishing}  {sofa.Name}  Подлокотники {(sofa.Armrests ? "есть" : "нет")} {sofa.Mechanism}";
         listBoxSofa.Items.Add(buffer);
+    }
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+        Random random = new Random();
+        IPaintMethod paint;
+        Graphics graphics = pictureBox3.CreateGraphics();
+        if (checkBox1.Checked)
+        {
+            paint = new Oval(random.Next(0, 100), random.Next(0, 100), random.Next(0, 100), random.Next(0, 100));
+            paint.Draw(graphics);
+            return;
+        }
+        paint = new FilledSquare(random.Next(0, 100), random.Next(0, 100), random.Next(0, 100), random.Next(0, 100));
+        paint.Draw(graphics);
     }
 }
