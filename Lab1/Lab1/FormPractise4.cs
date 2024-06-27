@@ -25,10 +25,10 @@ public partial class FormPractise4 : Form
     {
         while (true)
         {
+            if (firstSum > secondSum) break;
             dataGridView1.Rows.Add(year++, firstSum, secondSum);
             firstSum  += firstSum * firstPercent;
             secondSum += secondSum * secondPercent;
-            if (firstSum > secondSum) break;
         }
     }
 }
